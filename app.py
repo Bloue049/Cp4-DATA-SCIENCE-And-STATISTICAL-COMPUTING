@@ -45,7 +45,7 @@ HABILIDADES_TECNICAS = {
         "Aptidão em aprender o que for necessário para exercer melhor desempenho", 
         "Trabalho em equipe",
         "Senso de liderança and gestão de equipe",
-        "Resolução de problemas com eficiência e criatividade",
+        "Resolução de problemas com eficiência e creatividade", 
         "Respeito a prazos e deveres",
         "Resolução de problemas sobre pressão",
     ]
@@ -388,7 +388,7 @@ def show_data_analysis():
     st.markdown("""
     ## 🎯 Análise Estatística Básica
     
-    Estudo descritivo de dados de transferência de arquivos com foco nas medidas estatísticas fundamentais.
+    Estudo descritivo de dados de transferência de arquivos com foco nas medidas estatísticas fundamentales.
     """)
     
 
@@ -474,7 +474,10 @@ def show_data_analysis():
     st.markdown("#### 🔗 Análise de Correlação")
     
     correlation = df[['tamanho_mb', 'tempo_transferencia_seg', 'velocidade_rede_mbps']].corr()
-    st.dataframe(correlation.style.background_gradient(cmap='RdBu_r', vmin=-1, vmax=1).format('{:.3f}'))
+    
+    # LINHA 477 CORRIGIDA - SEM background_gradient
+    styled_correlation = correlation.style.format('{:.3f}')
+    st.dataframe(styled_correlation)
     
     st.markdown(f"""
     **Interpretação das correlações**:
@@ -553,7 +556,7 @@ def show_data_analysis():
         é maior que 200 segundos.
         
         **📊 Significado**: Os dados não fornecem evidências estatísticas 
-        fortes o suficiente para provar que o tempo médio excede 200 segundos.
+        fortes o suficiente para prové que o tempo médio excede 200 segundos.
         Isso não significa que o tempo médio é menor ou igual a 200 segundos, 
         apenas que não temos dados suficientes para rejeitar a hipótese nula.
         """)
