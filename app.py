@@ -8,7 +8,7 @@ import os
 import numpy as np
 from datetime import datetime, timedelta
 
-# Configuração da página
+
 st.set_page_config(
     page_title="CV Digital | Lucas Vasquez Silva",
     page_icon="📊",
@@ -16,7 +16,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Dados pessoais
+
 NOME = "Lucas Vasquez Silva"
 TITULO = "Engenheiro de Software"
 DESCRICAO = """
@@ -28,14 +28,13 @@ EMAIL = "lucasvasilva049@gmail.com"
 TELEFONE = "+55 (11) 94582-9563"
 LOCALIZACAO = "Rua Copacabana São Paulo, SP 02461-000"
 
-# Redes sociais
 REDES_SOCIAIS = {
     "📧 Email": "lucasvasilva049@gmail.com",
     "💼 LinkedIn": "https://www.linkedin.com/in/lucas-vasquez-silva-439a68288",
     "🐱 GitHub": "https://github.com/Bloue049",
 }
 
-# Habilidades técnicas
+
 HABILIDADES_TECNICAS = {
     "Linguagens de Programação": ["Python", "SQL"],
     "Frameworks & Bibliotecas": ["Pandas","Streamlit"],
@@ -52,7 +51,7 @@ HABILIDADES_TECNICAS = {
     ]
 }
 
-# Experiências Acadêmicas
+
 EXPERIENCIAS_ACADEMICAS = [
     {
         "cargo": "",
@@ -77,7 +76,6 @@ EXPERIENCIAS_ACADEMICAS = [
     }
 ]
 
-# Formação acadêmica
 FORMACAO = {
     "curso": "Engenharia de Software",
     "instituicao": "Faculdade de Informática e Administração Paulista (FIAP)",
@@ -86,7 +84,7 @@ FORMACAO = {
     "descricao": "Graduação em Engenharia de Software com foco em desenvolvimento full-stack e arquitetura de software."
 }
 
-# Certificações (com 2 certificados adicionais)
+
 CERTIFICACOES = [
     {
         "nome": "Design Thinking",
@@ -125,22 +123,22 @@ CERTIFICACOES = [
     }
 ]
 
-# Função para gerar dados realistas e matematicamente consistentes
+
 def gerar_dados_realistas():
     np.random.seed(42)
     n = 500
     
-    # Dados realistas baseados em estatísticas de rede
+
     tamanho_base = np.random.normal(150, 50, n)
     velocidade_base = np.random.normal(50, 10, n)
     
-    # Garantir valores positivos e realistas
+
     tamanho_mb = np.clip(tamanho_base, 20, 300)
     velocidade_mbps = np.clip(velocidade_base, 20, 80)
     
-    # Tempo de transferência baseado em fórmula realista: tamanho/velocidade + ruído
-    tempo_teorico = (tamanho_mb * 8) / velocidade_mbps  # Convertendo MB para Mb
-    ruido = np.random.normal(0, 15, n)  # Ruído aleatório
+
+    tempo_teorico = (tamanho_mb * 8) / velocidade_mbps  
+    ruido = np.random.normal(0, 15, n)  
     tempo_transferencia = np.clip(tempo_teorico + ruido, 30, 360)
     
     dados = {
@@ -152,7 +150,6 @@ def gerar_dados_realistas():
     
     return pd.DataFrame(dados)
 
-# Função para calcular estatísticas descritivas
 def calcular_estatisticas_descritivas(df, coluna):
     stats = df[coluna].describe()
     moda = df[coluna].mode()
@@ -168,13 +165,13 @@ def calcular_estatisticas_descritivas(df, coluna):
         'q3': stats['75%']
     }
 
-# Layout do dashboard
+
 def main():
-    # Sidebar com abas de navegação
+
     with st.sidebar:
         st.title("🧭 Navegação")
         
-        # Criar abas na sidebar
+
         selected_tab = st.radio(
             "Selecione a seção:",
             ["🏠 Início", "🎓 Formação", "📚 Experiências Acadêmicas", "📊 Habilidades", "📜 Certificações", "📈 Análise de Dados"],
@@ -192,7 +189,7 @@ def main():
         for rede, link in REDES_SOCIAIS.items():
             st.markdown(f"[{rede}]({link})")
     
-    # Conteúdo principal baseado na aba selecionada
+
     if selected_tab == "🏠 Início":
         show_home()
     elif selected_tab == "🎓 Formação":
@@ -207,13 +204,13 @@ def main():
         show_data_analysis()
 
 def show_home():
-    # Conteúdo principal - ABA DE INÍCIO AMPLIADA
+
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        # Espaço para foto - CORRIGIDO
+
         try:
-            # Tenta carregar a imagem
+
             foto = Image.open("assets/foto_perfil.jpg")
             st.image(foto, width=200, caption="Lucas Vasquez Silva")
         except FileNotFoundError:
@@ -225,7 +222,7 @@ def show_home():
         except Exception as e:
             st.error(f"Erro ao carregar imagem: {e}")
         
-        # Estatísticas rápidas
+
         st.markdown("---")
         st.subheader("📈 Estatísticas")
         col_stat1, col_stat2 = st.columns(2)
@@ -241,7 +238,7 @@ def show_home():
         st.subheader(TITULO)
         st.write(DESCRICAO)
         
-        # Citação inspiradora
+
         st.markdown("---")
         st.markdown("""
         <div style='background-color: #f0f2f6; padding: 20px; border-radius: 10px; border-left: 4px solid #4B7BEC;'>
@@ -251,10 +248,10 @@ def show_home():
         </div>
         """, unsafe_allow_html=True)
     
-    # Novas seções na página inicial
+
     st.markdown("---")
     
-    # Destaques rápidos
+
     st.subheader("⭐ Destaques")
     col_destaque1, col_destaque2, col_destaque3 = st.columns(3)
     
@@ -277,7 +274,7 @@ def show_home():
         """)
 
 def show_academic_experience():
-    # Seção de Experiências Acadêmicas
+
     st.header("📚 Experiências Acadêmicas")
     
     for exp in EXPERIENCIAS_ACADEMICAS:
@@ -285,23 +282,22 @@ def show_academic_experience():
             st.markdown(exp['descricao'])
 
 def show_education():
-    # Seção de Formação Acadêmica
+
     st.header("🎓 Formação Acadêmica")
-    
-    # Barra de progresso (estimativa baseada no período)
+
     st.subheader(f"{FORMACAO['curso']}")
     st.write(f"**Instituição:** {FORMACAO['instituicao']}")
     st.write(f"**Período:** {FORMACAO['periodo']} ({FORMACAO['status']})")
     
-    # Progresso estimado do curso (baseado no período)
-    progresso = 0.4  # 40% considerando 2024-2027 (início em 2024)
+
+    progresso = 0.4 
     st.progress(progresso, text=f"Progresso do curso: {int(progresso * 100)}%")
     
     st.markdown("---")
     st.write("**Sobre o curso:**")
     st.write(FORMACAO['descricao'])
     
-    # Matérias relevantes ou áreas de estudo
+
     st.markdown("---")
     st.subheader("📚 Áreas de Estudo")
     
@@ -321,15 +317,15 @@ def show_education():
             st.markdown(f"✓ {area}")
 
 def show_skills():
-    # Seção de Habilidades
+
     st.header("📊 Habilidades Técnicas")
     
-    # Criar colunas para organizar as habilidades
+
     col1, col2 = st.columns(2)
     
     with col1:
         for i, (categoria, habilidades) in enumerate(HABILIDADES_TECNICAS.items()):
-            if i % 2 == 0:  # Primeira coluna: categorias pares
+            if i % 2 == 0:  
                 st.subheader(f"🔧 {categoria}")
                 for habilidade in habilidades:
                     st.markdown(f"• **{habilidade}**")
@@ -337,13 +333,13 @@ def show_skills():
     
     with col2:
         for i, (categoria, habilidades) in enumerate(HABILIDADES_TECNICAS.items()):
-            if i % 2 == 1:  # Segunda coluna: categorias ímpares
+            if i % 2 == 1:  
                 st.subheader(f"🔧 {categoria}")
                 for habilidade in habilidades:
                     st.markdown(f"• **{habilidade}**")
                 st.markdown("---")
     
-    # Barra de progresso para habilidades principais
+
     st.markdown("---")
     st.subheader("🎯 Nível de Proficiência nas Principais Habilidades")
     
@@ -353,7 +349,7 @@ def show_skills():
         "PacketTracer": 70,
         "Documentação de Projetos": 85,
         "Modelagem 3D": 80,
-        # HABILIDADES COMPORTamentais
+
         "Comunicação": 90,
         "Trabalho em equipe": 95,
         "Resolução de problemas": 85
@@ -366,12 +362,12 @@ def show_skills():
         st.markdown("")
 
 def show_certifications():
-    # Seção de Certificações (SIMPLIFICADA - sem funcionalidade de adicionar/remover)
+
     st.header("📜 Certificações e Credenciais")
     
     st.info("Clique nos links para verificar as credenciais")
     
-    # Exibir certificações de forma simplificada
+
     for i, cert in enumerate(CERTIFICACOES):
         with st.expander(f"{cert['nome']} - {cert['instituicao']} ({cert['data']})", expanded=True):
             col1, col2 = st.columns([3, 1])
@@ -388,18 +384,18 @@ def show_certifications():
 def show_data_analysis():
     st.header("📈 Análise Estatística Descritiva")
     
-    # Introdução simplificada
+
     st.markdown("""
     ## 🎯 Análise Estatística Básica
     
     Estudo descritivo de dados de transferência de arquivos com foco nas medidas estatísticas fundamentais.
     """)
     
-    # Gerar dados simplificados mas realistas
+
     with st.spinner('Gerando dados para análise...'):
         df = gerar_dados_realistas()
     
-    # 1. Apresentação dos dados e tipos de variáveis
+
     st.markdown("---")
     st.subheader("📋 1. Apresentação dos Dados e Tipos de Variáveis")
     
@@ -414,7 +410,7 @@ def show_data_analysis():
       - `velocidade_rede_mbps` (velocidade em Mbps)
     """)
     
-    # Mostrar amostra dos dados
+
     with st.expander("🧪 Visualizar Amostra dos Dados"):
         st.dataframe(df.head(10))
     
@@ -425,7 +421,7 @@ def show_data_analysis():
     3. Qual a velocidade média de transferência na rede?
     """)
     
-    # 2. Medidas centrais e análise descritiva
+
     st.markdown("---")
     st.subheader("📊 2. Medidas Centrais e Análise Descritiva")
     
@@ -459,7 +455,7 @@ def show_data_analysis():
         - Coef. Variação: {(tempo_stats['desvio_padrao']/tempo_stats['media'])*100:.1f}%
         """)
     
-    # Visualização das distribuições
+
     st.markdown("#### 📈 Distribuição dos Dados")
     
     col1, col2 = st.columns(2)
@@ -474,7 +470,7 @@ def show_data_analysis():
         hist_values = np.histogram(df['tempo_transferencia_seg'], bins=20, range=(0, 400))[0]
         st.bar_chart(hist_values)
     
-    # Análise de correlação
+
     st.markdown("#### 🔗 Análise de Correlação")
     
     correlation = df[['tamanho_mb', 'tempo_transferencia_seg', 'velocidade_rede_mbps']].corr()
@@ -487,7 +483,7 @@ def show_data_analysis():
     - **Tamanho × Velocidade**: {correlation.loc['tamanho_mb', 'velocidade_rede_mbps']:.3f} → Correlação fraca (independentes)
     """)
     
-    # 3. Intervalos de Confiança e Testes de Hipótese
+
     st.markdown("---")
     st.subheader("📋 3. Intervalos de Confiança e Testes de Hipótese")
     
@@ -498,7 +494,7 @@ def show_data_analysis():
     esperam para transferir arquivos, avec um nível de confiança de 95%.
     """)
     
-    # Cálculo do intervalo de confiança para o tempo médio
+
     tempo_mean = np.mean(df['tempo_transferencia_seg'])
     tempo_std = np.std(df['tempo_transferencia_seg'], ddof=1)
     n = len(df['tempo_transferencia_seg'])
@@ -526,7 +522,7 @@ def show_data_analysis():
         da nossa estimativa baseada na amostra de {n} observações.
         """)
     
-    # Teste de hipótese
+
     st.markdown("#### 🧪 Teste de Hipótese")
     
     st.markdown("""
@@ -537,7 +533,7 @@ def show_data_analysis():
     - **α = 0.05** (95% de confiança)
     """)
     
-    # Teste t unilateral
+
     valor_referencia = 200
     t_stat = (tempo_mean - valor_referencia) / se
     
@@ -562,7 +558,7 @@ def show_data_analysis():
         apenas que não temos dados suficientes para rejeitar a hipótese nula.
         """)
     
-    # Conclusão mantida da versão anterior (sem próximos passos)
+
     st.markdown("---")
     st.subheader("🎯 Conclusões e Recomendações")
     
@@ -612,7 +608,7 @@ def show_data_analysis():
     - ROI estimado: 3-6 meses
     """)
 
-# CSS personalizado
+
 st.markdown("""
 <style>
     .main {
